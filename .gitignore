@@ -29,3 +29,8 @@ Thumbs.db
 tmp/
 temp/
 *.tmp
+
+# Release packages
+releases/
+*.tar.gz
+*.zip

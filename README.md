@@ -1,5 +1,7 @@
 # ZeroBitOne Dashboard
 
+> 🎉 **NEW!** One-click installation now available! No manual downloads or Node.js management required. See [Quick Start](#quick-start) below.
+
 A comprehensive, self-hosted dashboard application with Microsoft 365 integration, GitHub/Copilot agent management, and a complete ticketing system. Built with security, flexibility, and ease of use in mind.
 
 ## Features
@@ -46,11 +48,51 @@ A comprehensive, self-hosted dashboard application with Microsoft 365 integratio
 
 ## Quick Start
 
+> 🚀 **New!** We now provide automated installers and pre-packaged releases for easy setup! See [INSTALLATION.md](INSTALLATION.md) for all installation methods.
+
+### 📥 Download
+
+**Option A: Release Package (Recommended)**
+- Download from [GitHub Releases](https://github.com/craigfelt/ZeroBitOneDashboard/releases)
+- Extract and run the installer for your platform
+
+**Option B: Clone Repository**
+```bash
+git clone https://github.com/craigfelt/ZeroBitOneDashboard.git
+cd ZeroBitOneDashboard
+```
+
+### Installation Options
+
+Choose the method that works best for you:
+
+#### Option 1: Automated Installer (Recommended)
+
+**Windows:**
+- Download release ZIP or clone repository
+- Double-click `install.bat`
+- Follow the prompts
+
+**Linux/Mac:**
+```bash
+# After downloading or cloning:
+chmod +x install.sh
+./install.sh
+```
+
+#### Option 2: Docker (For Production)
+
+```bash
+# After downloading or cloning:
+cp .env.example .env
+docker-compose up -d
+```
+
+#### Option 3: Manual Installation
+
 ### Prerequisites
 - Node.js 16+ installed
 - Git (for cloning the repository)
-
-### Installation
 
 1. **Clone the repository**
    ```bash

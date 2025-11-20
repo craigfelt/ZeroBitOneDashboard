@@ -1,0 +1,57 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+*.md
+!README.md
+
+# Installation scripts
+install.sh
+install.bat
+install.ps1
+uninstall.sh
+uninstall.bat
+uninstall.ps1
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Node modules
+node_modules
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Data (will be mounted as volume)
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
