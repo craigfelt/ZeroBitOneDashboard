@@ -46,7 +46,19 @@ A comprehensive, self-hosted dashboard application with Microsoft 365 integratio
 
 ## Quick Start
 
-> 🚀 **New!** We now provide automated installers for easy setup! See [INSTALLATION.md](INSTALLATION.md) for all installation methods.
+> 🚀 **New!** We now provide automated installers and pre-packaged releases for easy setup! See [INSTALLATION.md](INSTALLATION.md) for all installation methods.
+
+### 📥 Download
+
+**Option A: Release Package (Recommended)**
+- Download from [GitHub Releases](https://github.com/craigfelt/ZeroBitOneDashboard/releases)
+- Extract and run the installer for your platform
+
+**Option B: Clone Repository**
+```bash
+git clone https://github.com/craigfelt/ZeroBitOneDashboard.git
+cd ZeroBitOneDashboard
+```
 
 ### Installation Options
 
@@ -55,14 +67,13 @@ Choose the method that works best for you:
 #### Option 1: Automated Installer (Recommended)
 
 **Windows:**
-- Download/clone this repository
+- Download release ZIP or clone repository
 - Double-click `install.bat`
 - Follow the prompts
 
 **Linux/Mac:**
 ```bash
-git clone https://github.com/craigfelt/ZeroBitOneDashboard.git
-cd ZeroBitOneDashboard
+# After downloading or cloning:
 chmod +x install.sh
 ./install.sh
 ```
@@ -70,8 +81,7 @@ chmod +x install.sh
 #### Option 2: Docker (For Production)
 
 ```bash
-git clone https://github.com/craigfelt/ZeroBitOneDashboard.git
-cd ZeroBitOneDashboard
+# After downloading or cloning:
 cp .env.example .env
 docker-compose up -d
 ```

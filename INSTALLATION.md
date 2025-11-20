@@ -1,5 +1,25 @@
 # ZeroBitOne Dashboard - Installation Guide
 
+## 📥 Download the Application
+
+### Option A: Download Release Package (Easiest)
+
+Download the pre-packaged release from GitHub Releases:
+
+- **Windows**: Download `ZeroBitOneDashboard-v1.0.0.zip`
+- **Linux/Mac**: Download `ZeroBitOneDashboard-v1.0.0.tar.gz`
+
+These packages include everything you need to get started!
+
+### Option B: Clone from GitHub
+
+```bash
+git clone https://github.com/craigfelt/ZeroBitOneDashboard.git
+cd ZeroBitOneDashboard
+```
+
+---
+
 ## Quick Start - Choose Your Installation Method
 
 ZeroBitOne Dashboard can be installed in three ways:
@@ -17,7 +37,7 @@ The automated installer handles everything for you: checking prerequisites, copy
 ### For Windows Users
 
 1. **Download the Repository**
-   - Download and extract the ZIP file from GitHub
+   - Download and extract the ZIP release package
    - Or clone: `git clone https://github.com/craigfelt/ZeroBitOneDashboard.git`
 
 2. **Run the Installer**
