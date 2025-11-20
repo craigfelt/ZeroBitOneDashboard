@@ -1,5 +1,7 @@
 # ZeroBitOne Dashboard
 
+> 🎉 **NEW!** One-click installation now available! No manual downloads or Node.js management required. See [Quick Start](#quick-start) below.
+
 A comprehensive, self-hosted dashboard application with Microsoft 365 integration, GitHub/Copilot agent management, and a complete ticketing system. Built with security, flexibility, and ease of use in mind.
 
 ## Features
