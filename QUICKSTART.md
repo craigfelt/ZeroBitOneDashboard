@@ -42,10 +42,20 @@ npm start
 
 ### Step 2: Access the Dashboard
 
+### Step 2: Access the Dashboard
+
+The installer will ask if you want to start the app now. Say **Yes**!
+
+Or start it manually:
+- **Windows**: Double-click the desktop shortcut
+- **Linux/Mac**: Run `./start.sh` in the installation directory
+
 Open your web browser to:
 ```
 http://localhost:5000
 ```
+
+> 💡 **Note:** You don't need to manually start Node.js - it starts automatically when you launch the app, just like any other program!
 
 ### Step 3: Login
 
@@ -85,6 +95,21 @@ For detailed information, see:
 - [INSTALLATION.md](INSTALLATION.md) - Complete installation guide
 - [README.md](README.md) - Full feature documentation
 - [DATABASE_SETUP.md](DATABASE_SETUP.md) - Database management
+
+---
+
+## ❓ Frequently Asked Questions
+
+### Do I need to manually start Node.js?
+**No!** Node.js runs automatically when you start the app. Just click the shortcut or run the start script. See [HOW_TO_RUN.md](HOW_TO_RUN.md) for details.
+
+### How do I start the app after installation?
+- **Windows**: Double-click "ZeroBitOne Dashboard" on your desktop
+- **Linux/Mac**: Click the app icon or run `./start.sh`
+- The installer will ask if you want to start it immediately!
+
+### Can it auto-start when I turn on my computer?
+**Yes!** See [HOW_TO_RUN.md](HOW_TO_RUN.md) for instructions on setting up auto-start.
 
 ---
 

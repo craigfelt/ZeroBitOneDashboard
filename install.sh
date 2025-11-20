@@ -285,27 +285,68 @@ show_completion_message() {
     echo -e "${BLUE}Installation Directory:${NC} $INSTALL_DIR"
     echo -e "${BLUE}Default Port:${NC} $PORT"
     echo ""
-    echo -e "${YELLOW}Next Steps:${NC}"
+    
+    # Ask if user wants to start the application now
+    echo -e "${YELLOW}Would you like to start the application now?${NC}"
+    read -p "(y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        print_header "Starting Application"
+        cd "$INSTALL_DIR"
+        
+        # Start in background
+        nohup npm start > /dev/null 2>&1 &
+        local pid=$!
+        
+        # Wait a moment for it to start
+        sleep 3
+        
+        # Check if it's running
+        if ps -p $pid > /dev/null; then
+            print_success "Application started! (PID: $pid)"
+            echo ""
+            echo -e "${GREEN}✨ ZeroBitOne Dashboard is now running!${NC}"
+            echo ""
+            echo -e "${BLUE}Access it at:${NC} http://localhost:$PORT"
+            echo ""
+            echo -e "${BLUE}Login credentials:${NC}"
+            echo "   Username: admin"
+            echo "   Password: admin123"
+            echo "   ⚠️  CHANGE THIS PASSWORD IMMEDIATELY!"
+            echo ""
+            echo -e "${YELLOW}To stop the application:${NC}"
+            echo "   cd $INSTALL_DIR && ./stop.sh"
+        else
+            print_error "Failed to start application"
+            echo "You can start it manually:"
+            echo "   cd $INSTALL_DIR"
+            echo "   ./start.sh"
+        fi
+    else
+        echo ""
+        echo -e "${YELLOW}Next Steps:${NC}"
+        echo ""
+        echo "1. Configure your settings (optional):"
+        echo "   cd $INSTALL_DIR"
+        echo "   nano .env"
+        echo ""
+        echo "2. Start the application:"
+        echo "   cd $INSTALL_DIR"
+        echo "   ./start.sh"
+        echo "   OR"
+        echo "   npm start"
+        echo ""
+        echo "3. Access the dashboard:"
+        echo "   http://localhost:$PORT"
+        echo ""
+        echo "4. Login with default credentials:"
+        echo "   Username: admin"
+        echo "   Password: admin123"
+        echo "   ⚠️  CHANGE THIS PASSWORD IMMEDIATELY!"
+    fi
+    
     echo ""
-    echo "1. Configure your settings:"
-    echo "   cd $INSTALL_DIR"
-    echo "   nano .env"
-    echo ""
-    echo "2. Start the application:"
-    echo "   cd $INSTALL_DIR"
-    echo "   ./start.sh"
-    echo "   OR"
-    echo "   npm start"
-    echo ""
-    echo "3. Access the dashboard:"
-    echo "   http://localhost:$PORT"
-    echo ""
-    echo "4. Login with default credentials:"
-    echo "   Username: admin"
-    echo "   Password: admin123"
-    echo "   ⚠️  CHANGE THIS PASSWORD IMMEDIATELY!"
-    echo ""
-    echo -e "${YELLOW}Optional: Install as System Service${NC}"
+    echo -e "${YELLOW}Optional: Install as System Service (Auto-start on Boot)${NC}"
     echo "   sudo cp $INSTALL_DIR/zerobitone.service /etc/systemd/system/"
     echo "   sudo systemctl enable zerobitone"
     echo "   sudo systemctl start zerobitone"

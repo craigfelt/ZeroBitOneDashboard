@@ -316,27 +316,65 @@ function Show-CompletionMessage {
     Write-ColorOutput "Default Port: " "Cyan" -NoNewline
     Write-Host $PORT
     Write-Host ""
-    Write-ColorOutput "Next Steps:" "Yellow"
-    Write-Host ""
-    Write-Host "1. Configure your settings:"
-    Write-Host "   cd $INSTALL_DIR"
-    Write-Host "   notepad .env"
-    Write-Host ""
-    Write-Host "2. Start the application:"
-    Write-Host "   - Double-click 'ZeroBitOne Dashboard' on your Desktop"
-    Write-Host "   OR"
-    Write-Host "   - Run start.bat from the installation directory"
-    Write-Host "   OR"
-    Write-Host "   cd $INSTALL_DIR"
-    Write-Host "   npm start"
-    Write-Host ""
-    Write-Host "3. Access the dashboard:"
-    Write-Host "   http://localhost:$PORT"
-    Write-Host ""
-    Write-Host "4. Login with default credentials:"
-    Write-Host "   Username: admin"
-    Write-Host "   Password: admin123"
-    Write-ColorOutput "   ⚠️  CHANGE THIS PASSWORD IMMEDIATELY!" "Yellow"
+    
+    # Ask if user wants to start the application now
+    Write-ColorOutput "Would you like to start the application now?" "Yellow"
+    $startNow = Read-Host "(y/N)"
+    
+    if ($startNow -match '^[Yy]$') {
+        Write-Header "Starting Application"
+        
+        try {
+            # Start the application in a new window
+            $startScript = "$INSTALL_DIR\start.bat"
+            Start-Process -FilePath $startScript -WorkingDirectory $INSTALL_DIR
+            
+            # Wait a moment
+            Start-Sleep -Seconds 3
+            
+            Write-ColorOutput "✨ ZeroBitOne Dashboard is starting!" "Green"
+            Write-Host ""
+            Write-ColorOutput "Access it at: " "Cyan" -NoNewline
+            Write-Host "http://localhost:$PORT"
+            Write-Host ""
+            Write-ColorOutput "Login credentials:" "Cyan"
+            Write-Host "   Username: admin"
+            Write-Host "   Password: admin123"
+            Write-ColorOutput "   ⚠️  CHANGE THIS PASSWORD IMMEDIATELY!" "Yellow"
+            Write-Host ""
+            Write-ColorOutput "The application is running in a separate window." "Yellow"
+            Write-ColorOutput "Close that window to stop the application." "Yellow"
+        } catch {
+            Write-Warning "Could not start application automatically: $($_.Exception.Message)"
+            Write-Host "You can start it manually using the desktop shortcut or:"
+            Write-Host "   cd $INSTALL_DIR"
+            Write-Host "   .\start.bat"
+        }
+    } else {
+        Write-Host ""
+        Write-ColorOutput "Next Steps:" "Yellow"
+        Write-Host ""
+        Write-Host "1. Configure your settings (optional):"
+        Write-Host "   cd $INSTALL_DIR"
+        Write-Host "   notepad .env"
+        Write-Host ""
+        Write-Host "2. Start the application:"
+        Write-Host "   - Double-click 'ZeroBitOne Dashboard' on your Desktop"
+        Write-Host "   OR"
+        Write-Host "   - Run start.bat from the installation directory"
+        Write-Host "   OR"
+        Write-Host "   cd $INSTALL_DIR"
+        Write-Host "   npm start"
+        Write-Host ""
+        Write-Host "3. Access the dashboard:"
+        Write-Host "   http://localhost:$PORT"
+        Write-Host ""
+        Write-Host "4. Login with default credentials:"
+        Write-Host "   Username: admin"
+        Write-Host "   Password: admin123"
+        Write-ColorOutput "   ⚠️  CHANGE THIS PASSWORD IMMEDIATELY!" "Yellow"
+    }
+    
     Write-Host ""
     Write-ColorOutput "Thank you for installing ZeroBitOne Dashboard!" "Green"
     Write-Host ""
