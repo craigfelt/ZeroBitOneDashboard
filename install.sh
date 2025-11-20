@@ -132,21 +132,48 @@ copy_files() {
     print_info "Copying files from $SCRIPT_DIR to $INSTALL_DIR..."
     
     # Copy package files
-    cp -r "$SCRIPT_DIR/package.json" "$INSTALL_DIR/" 2>/dev/null || true
-    cp -r "$SCRIPT_DIR/package-lock.json" "$INSTALL_DIR/" 2>/dev/null || true
+    cp "$SCRIPT_DIR/package.json" "$INSTALL_DIR/" 2>/dev/null || true
+    cp "$SCRIPT_DIR/package-lock.json" "$INSTALL_DIR/" 2>/dev/null || true
     
     # Copy server directory
-    cp -r "$SCRIPT_DIR/server" "$INSTALL_DIR/" 2>/dev/null || true
+    if [ -d "$SCRIPT_DIR/server" ]; then
+        cp -r "$SCRIPT_DIR/server" "$INSTALL_DIR/" 2>/dev/null || true
+    fi
     
     # Copy public directory
-    cp -r "$SCRIPT_DIR/public" "$INSTALL_DIR/" 2>/dev/null || true
+    if [ -d "$SCRIPT_DIR/public" ]; then
+        cp -r "$SCRIPT_DIR/public" "$INSTALL_DIR/" 2>/dev/null || true
+    fi
     
     # Copy documentation
-    cp -r "$SCRIPT_DIR/README.md" "$INSTALL_DIR/" 2>/dev/null || true
-    cp -r "$SCRIPT_DIR/DATABASE_SETUP.md" "$INSTALL_DIR/" 2>/dev/null || true
+    cp "$SCRIPT_DIR/README.md" "$INSTALL_DIR/" 2>/dev/null || true
+    cp "$SCRIPT_DIR/DATABASE_SETUP.md" "$INSTALL_DIR/" 2>/dev/null || true
+    cp "$SCRIPT_DIR/INSTALLATION.md" "$INSTALL_DIR/" 2>/dev/null || true
+    cp "$SCRIPT_DIR/QUICKSTART.md" "$INSTALL_DIR/" 2>/dev/null || true
     
     # Copy .env.example
-    cp -r "$SCRIPT_DIR/.env.example" "$INSTALL_DIR/" 2>/dev/null || true
+    if [ -f "$SCRIPT_DIR/.env.example" ]; then
+        cp "$SCRIPT_DIR/.env.example" "$INSTALL_DIR/.env.example"
+    else
+        # Create a basic .env.example if it doesn't exist
+        cat > "$INSTALL_DIR/.env.example" << 'ENVEOF'
+# Server Configuration
+PORT=5000
+NODE_ENV=development
+CLIENT_URL=http://localhost:3000
+SESSION_SECRET=your-secret-key-change-in-production
+
+# Microsoft 365 / Azure AD Configuration
+AZURE_CLIENT_ID=your-azure-client-id
+AZURE_CLIENT_SECRET=your-azure-client-secret
+AZURE_TENANT_ID=your-tenant-id
+AZURE_REDIRECT_URI=http://localhost:5000/api/auth/m365/callback
+
+# GitHub Configuration
+GITHUB_TOKEN=your-github-token
+GITHUB_ORG=your-github-org
+ENVEOF
+    fi
     
     # Create data directory
     mkdir -p "$INSTALL_DIR/data"

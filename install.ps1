@@ -140,17 +140,45 @@ function Copy-ApplicationFiles {
     Copy-Item -Path "$SCRIPT_DIR\package-lock.json" -Destination $INSTALL_DIR -Force -ErrorAction SilentlyContinue
     
     # Copy server directory
-    Copy-Item -Path "$SCRIPT_DIR\server" -Destination $INSTALL_DIR -Recurse -Force -ErrorAction SilentlyContinue
+    if (Test-Path "$SCRIPT_DIR\server") {
+        Copy-Item -Path "$SCRIPT_DIR\server" -Destination $INSTALL_DIR -Recurse -Force -ErrorAction SilentlyContinue
+    }
     
     # Copy public directory
-    Copy-Item -Path "$SCRIPT_DIR\public" -Destination $INSTALL_DIR -Recurse -Force -ErrorAction SilentlyContinue
+    if (Test-Path "$SCRIPT_DIR\public") {
+        Copy-Item -Path "$SCRIPT_DIR\public" -Destination $INSTALL_DIR -Recurse -Force -ErrorAction SilentlyContinue
+    }
     
     # Copy documentation
     Copy-Item -Path "$SCRIPT_DIR\README.md" -Destination $INSTALL_DIR -Force -ErrorAction SilentlyContinue
     Copy-Item -Path "$SCRIPT_DIR\DATABASE_SETUP.md" -Destination $INSTALL_DIR -Force -ErrorAction SilentlyContinue
+    Copy-Item -Path "$SCRIPT_DIR\INSTALLATION.md" -Destination $INSTALL_DIR -Force -ErrorAction SilentlyContinue
+    Copy-Item -Path "$SCRIPT_DIR\QUICKSTART.md" -Destination $INSTALL_DIR -Force -ErrorAction SilentlyContinue
     
     # Copy .env.example
-    Copy-Item -Path "$SCRIPT_DIR\.env.example" -Destination $INSTALL_DIR -Force -ErrorAction SilentlyContinue
+    if (Test-Path "$SCRIPT_DIR\.env.example") {
+        Copy-Item -Path "$SCRIPT_DIR\.env.example" -Destination "$INSTALL_DIR\.env.example" -Force
+    } else {
+        # Create a basic .env.example if it doesn't exist
+        $envContent = @"
+# Server Configuration
+PORT=5000
+NODE_ENV=development
+CLIENT_URL=http://localhost:3000
+SESSION_SECRET=your-secret-key-change-in-production
+
+# Microsoft 365 / Azure AD Configuration
+AZURE_CLIENT_ID=your-azure-client-id
+AZURE_CLIENT_SECRET=your-azure-client-secret
+AZURE_TENANT_ID=your-tenant-id
+AZURE_REDIRECT_URI=http://localhost:5000/api/auth/m365/callback
+
+# GitHub Configuration
+GITHUB_TOKEN=your-github-token
+GITHUB_ORG=your-github-org
+"@
+        Set-Content -Path "$INSTALL_DIR\.env.example" -Value $envContent
+    }
     
     # Create data directory
     if (-not (Test-Path "$INSTALL_DIR\data")) {

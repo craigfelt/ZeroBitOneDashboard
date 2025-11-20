@@ -1,5 +1,11 @@
-# ZeroBitOne Dashboard - Dockerfile
-FROM node:20-alpine
+# ZeroBitOne Dashboard - Alternative Dockerfile (Debian-based)
+# Use this if you have issues with the Alpine version
+FROM node:20-slim
+
+# Install build dependencies for better-sqlite3
+RUN apt-get update && \
+    apt-get install -y python3 make g++ && \
+    rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
@@ -7,8 +13,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies (better-sqlite3 has prebuilt binaries for alpine)
-RUN npm ci --only=production --ignore-scripts || npm install --only=production
+# Install dependencies
+RUN npm ci --only=production
 
 # Copy application files
 COPY server ./server
